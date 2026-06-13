@@ -1,0 +1,28 @@
+{
+  "isLive": true,
+  "upcoming": [
+    {
+      "id": "upcoming-1",
+      "title": "Doginals & DRC-20: The Dogecoin Revolution",
+      "date": "Tuesday, June 16 at 8:00 PM EST",
+      "description": "Talking L1 scaling, ordinals on Doge, and the future of DRC-20 tokens with guest speakers.",
+      "link": "https://x.com/crashmetax"
+    }
+  ],
+  "recent": [
+    {
+      "id": "recent-1",
+      "title": "The Collector's Mindset & Digital Antiquities",
+      "date": "June 10, 2026",
+      "duration": "1h 45m",
+      "link": "https://x.com/crashmetax"
+    },
+    {
+      "id": "recent-2",
+      "title": "Doginal Dogs Brand Launch & Community Call",
+      "date": "June 03, 2026",
+      "duration": "2h 15m",
+      "link": "https://x.com/crashmetax"
+    }
+  ]
+}
