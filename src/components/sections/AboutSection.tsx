@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { Compass, Sparkles } from "lucide-react";
 
@@ -110,9 +111,12 @@ export default function AboutSection() {
             className="lg:col-span-4 flex justify-center lg:justify-end w-full"
           >
             <div className="relative group w-48 h-48 md:w-56 md:h-56 lg:w-60 lg:h-60 rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl bg-obsidian-900 flex items-center justify-center select-none">
-              <img
+              <Image
                 src="/crash-doginal.png"
                 alt="Crash Collector Avatar"
+                fill
+                sizes="(max-width: 768px) 192px, 240px"
+                loading="lazy"
                 className="w-full h-full object-cover pixelated group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />

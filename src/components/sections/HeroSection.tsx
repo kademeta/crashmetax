@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { SITE_CONFIG } from "@/lib/config";
 
@@ -126,16 +127,15 @@ export default function HeroSection() {
       <div className="absolute inset-0 opacity-[0.035] mix-blend-overlay pointer-events-none z-0 bg-noise" />
 
       {/* Content Container */}
-      <motion.div 
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="relative z-10 flex flex-col items-center px-6 text-center select-none max-w-4xl mx-auto"
-      >
+      <div className="relative z-10 flex flex-col items-center px-6 text-center select-none max-w-4xl mx-auto">
         
         {/* Avatar Container (Slightly larger, breathing pulse & cyan border glow) */}
-        <motion.div variants={itemVariants} className="relative mb-6">
-          
+        <motion.div 
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
+          className="relative mb-6"
+        >
           {/* Subtle Breathing Glow behind Avatar */}
           <div className="absolute inset-0 pointer-events-none z-0">
             <motion.div
@@ -161,9 +161,12 @@ export default function HeroSection() {
               style={{ willChange: "transform" }}
               className="relative w-full h-full rounded-full border border-white/10 overflow-hidden bg-[#18181B] shadow-inner"
             >
-              <img 
+              <Image 
                 src="/crash-doginal.png" 
                 alt="Crash Doginal Collector" 
+                fill
+                sizes="(max-width: 768px) 176px, 224px"
+                priority
                 className="w-full h-full object-cover rounded-full pixelated" 
               />
             </motion.div>
@@ -171,14 +174,40 @@ export default function HeroSection() {
         </motion.div>
 
         {/* Heading Text (Tightened vertical gaps & refined negative tracking) */}
-        <motion.h1 variants={itemVariants} className="flex items-center justify-center font-sans text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none drop-shadow-xl select-none mb-3">
-          <span className="font-bold text-white tracking-[-0.03em]">Crash</span>
-          <span className="font-light text-white/65 pl-2 tracking-[-0.03em]">metax</span>
-        </motion.h1>
+        <h1 className="flex items-center justify-center font-sans text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none drop-shadow-xl select-none mb-3">
+          {/* "Crash" - Confident bold */}
+          <motion.span 
+            initial={{ scale: 0.96, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+            className="font-bold text-white tracking-[-0.03em] inline-block"
+          >
+            Crash
+          </motion.span>
+          
+          {/* "metax" - Sliding mask reveal (Unfolding) */}
+          <motion.span 
+            initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0, x: -15 }}
+            animate={{ clipPath: "inset(0 0% 0 0)", opacity: 1, x: 0 }}
+            transition={{ 
+              clipPath: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.35 },
+              opacity: { duration: 0.5, ease: "easeOut", delay: 0.35 },
+              x: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.35 }
+            }}
+            className="inline-block align-bottom overflow-hidden pl-2"
+            style={{ whiteSpace: 'nowrap' }}
+          >
+            <span className="font-light text-white/65 tracking-[-0.03em]">
+              metax
+            </span>
+          </motion.span>
+        </h1>
 
         {/* Tagline (fades in gracefully, unified font & tight margins) */}
         <motion.p 
-          variants={itemVariants}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
           className="mt-3.5 text-lg md:text-xl font-sans font-light tracking-wide text-white/80 select-none text-balance"
         >
           Built on faith. Powered by jpegs.
@@ -186,7 +215,9 @@ export default function HeroSection() {
 
         {/* CTA Buttons (Primary/Secondary visual hierarchy refined) */}
         <motion.div
-          variants={itemVariants}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.75 }}
           className="mt-8 flex flex-col items-center gap-5 w-full"
         >
           <div className="flex flex-col sm:flex-row items-center gap-4 justify-center w-full max-w-md px-4">
@@ -248,13 +279,13 @@ export default function HeroSection() {
             Follow & Subscribe to <span className="text-doginal-pink font-semibold tracking-normal lowercase">@Crashmetax</span> on 𝕏 • Join {SITE_CONFIG.followerCount} riding with us
           </p>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Scroll Indicator (Refined chevron bounce & opacity) */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.4 }}
-        transition={{ delay: 1.0, duration: 0.8 }}
+        transition={{ delay: 1.1, duration: 0.8 }}
         className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center z-10 pointer-events-none select-none hover:opacity-85 transition-opacity duration-300"
       >
         <span className="text-[9px] uppercase tracking-[6px] font-bold text-white/40 mb-1.5">Scroll</span>
