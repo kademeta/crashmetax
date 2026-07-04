@@ -1,42 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState } from "react";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { SITE_CONFIG } from "@/lib/config";
 
 export default function HeroSection() {
-  const [stage, setStage] = useState<'avatar' | 'crash' | 'metax' | 'settled'>('avatar');
   const [isSubscribeAnimating, setIsSubscribeAnimating] = useState(false);
   const [isFollowAnimating, setIsFollowAnimating] = useState(false);
 
   const { scrollY } = useScroll();
   // Very gentle y-parallax on background elements for depth
   const backgroundY = useTransform(scrollY, [0, 800], [0, 120]);
-
-  useEffect(() => {
-    // Stage 1: Avatar entrance begins immediately on mount (stage is 'avatar')
-
-    // Stage 2: 'crash' entrance starts at 150ms
-    const crashTimer = setTimeout(() => {
-      setStage('crash');
-    }, 150);
-
-    // Stage 3: 'metax' slide-out starts at 450ms
-    const metaxTimer = setTimeout(() => {
-      setStage('metax');
-    }, 450);
-
-    // Stage 4: 'settled' stage starts at 750ms, fading in tagline, CTA, & scroll indicator
-    const settledTimer = setTimeout(() => {
-      setStage('settled');
-    }, 750);
-
-    return () => {
-      clearTimeout(crashTimer);
-      clearTimeout(metaxTimer);
-      clearTimeout(settledTimer);
-    };
-  }, []);
 
   const handleSubscribeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -60,6 +34,30 @@ export default function HeroSection() {
       setIsFollowAnimating(false);
       window.open(SITE_CONFIG.links.xProfile, "_blank");
     }, 600);
+  };
+
+  // Choreographed stagger animations for hydration-safe fast loads
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
   };
 
   return (
@@ -128,18 +126,18 @@ export default function HeroSection() {
       <div className="absolute inset-0 opacity-[0.035] mix-blend-overlay pointer-events-none z-0 bg-noise" />
 
       {/* Content Container */}
-      <div className="relative z-10 flex flex-col items-center px-6 text-center select-none max-w-4xl mx-auto">
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="relative z-10 flex flex-col items-center px-6 text-center select-none max-w-4xl mx-auto"
+      >
         
         {/* Avatar Container (Slightly larger, breathing pulse & cyan border glow) */}
-        <div className="relative mb-6">
+        <motion.div variants={itemVariants} className="relative mb-6">
           
           {/* Subtle Breathing Glow behind Avatar */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={stage !== 'avatar' ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-            className="absolute inset-0 pointer-events-none z-0"
-          >
+          <div className="absolute inset-0 pointer-events-none z-0">
             <motion.div
               animate={{ 
                 scale: [1, 1.04, 1], 
@@ -153,83 +151,34 @@ export default function HeroSection() {
               style={{ willChange: "transform" }}
               className="w-full h-full rounded-full bg-doginal-teal/20 blur-[80px]"
             />
-          </motion.div>
+          </div>
           
           {/* Avatar (Subtle slow breathing scale + cyan border ring) */}
-          <motion.div
-            initial={{ scale: 0.92, opacity: 0 }}
-            animate={{ 
-              scale: stage === 'settled' ? [1, 1.025, 1] : 1,
-              opacity: 1 
-            }}
-            transition={
-              stage === 'settled'
-                ? { 
-                    scale: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-                    opacity: { duration: 0.8 } 
-                  }
-                : { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-            }
-            style={{ willChange: "transform" }}
-            className="relative w-44 h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full border border-doginal-teal/25 p-2 bg-obsidian-900/60 shadow-[0_0_35px_rgba(34,245,255,0.12)] z-10 flex items-center justify-center"
-          >
-            <div className="relative w-full h-full rounded-full border border-white/10 overflow-hidden bg-[#18181B] shadow-inner">
+          <div className="relative w-44 h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full border border-doginal-teal/25 p-2 bg-obsidian-900/60 shadow-[0_0_35px_rgba(34,245,255,0.12)] z-10 flex items-center justify-center">
+            <motion.div 
+              animate={{ scale: [1, 1.025, 1] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              style={{ willChange: "transform" }}
+              className="relative w-full h-full rounded-full border border-white/10 overflow-hidden bg-[#18181B] shadow-inner"
+            >
               <img 
                 src="/crash-doginal.png" 
                 alt="Crash Doginal Collector" 
                 className="w-full h-full object-cover rounded-full pixelated" 
               />
-            </div>
-          </motion.div>
-        </div>
+            </motion.div>
+          </div>
+        </motion.div>
 
         {/* Heading Text (Tightened vertical gaps & refined negative tracking) */}
-        <h1 className="flex items-center justify-center font-sans text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none drop-shadow-xl select-none mb-3">
-          {/* "Crash" - Confident bold */}
-          <motion.span 
-            initial={{ scale: 0.97, opacity: 0 }}
-            animate={stage !== 'avatar' ? { scale: 1, opacity: 1 } : { scale: 0.97, opacity: 0 }}
-            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-            className="font-bold text-white tracking-[-0.03em] inline-block"
-          >
-            Crash
-          </motion.span>
-          
-          {/* "metax" - Light, elegant slide-out */}
-          <motion.span 
-            initial={{ width: 0, opacity: 0 }}
-            animate={
-              (stage === 'metax' || stage === 'settled')
-                ? { width: 'auto', opacity: 1 }
-                : { width: 0, opacity: 0 }
-            }
-            transition={{ 
-              width: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
-              opacity: { duration: 0.5, ease: "easeOut", delay: 0.05 }
-            }}
-            className="overflow-hidden inline-block align-bottom"
-            style={{ whiteSpace: 'nowrap' }}
-          >
-            <motion.span 
-              initial={{ x: -25 }}
-              animate={
-                (stage === 'metax' || stage === 'settled')
-                  ? { x: 0 } 
-                  : { x: -25 }
-              }
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="font-light text-white/65 inline-block pl-2 tracking-[-0.03em]"
-            >
-              metax
-            </motion.span>
-          </motion.span>
-        </h1>
+        <motion.h1 variants={itemVariants} className="flex items-center justify-center font-sans text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none drop-shadow-xl select-none mb-3">
+          <span className="font-bold text-white tracking-[-0.03em]">Crash</span>
+          <span className="font-light text-white/65 pl-2 tracking-[-0.03em]">metax</span>
+        </motion.h1>
 
         {/* Tagline (fades in gracefully, unified font & tight margins) */}
         <motion.p 
-          initial={{ opacity: 0, y: 8 }}
-          animate={stage === 'settled' ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          variants={itemVariants}
           className="mt-3.5 text-lg md:text-xl font-sans font-light tracking-wide text-white/80 select-none text-balance"
         >
           Built on faith. Powered by jpegs.
@@ -237,9 +186,7 @@ export default function HeroSection() {
 
         {/* CTA Buttons (Primary/Secondary visual hierarchy refined) */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={stage === 'settled' ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+          variants={itemVariants}
           className="mt-8 flex flex-col items-center gap-5 w-full"
         >
           <div className="flex flex-col sm:flex-row items-center gap-4 justify-center w-full max-w-md px-4">
@@ -301,14 +248,14 @@ export default function HeroSection() {
             Follow & Subscribe to <span className="text-doginal-pink font-semibold tracking-normal lowercase">@Crashmetax</span> on 𝕏 • Join {SITE_CONFIG.followerCount} riding with us
           </p>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Scroll Indicator (Refined chevron bounce & opacity) */}
       <motion.div 
         initial={{ opacity: 0 }}
-        animate={stage === 'settled' ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center z-10 pointer-events-none select-none opacity-40 hover:opacity-85 transition-opacity duration-300"
+        animate={{ opacity: 0.4 }}
+        transition={{ delay: 1.0, duration: 0.8 }}
+        className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center z-10 pointer-events-none select-none hover:opacity-85 transition-opacity duration-300"
       >
         <span className="text-[9px] uppercase tracking-[6px] font-bold text-white/40 mb-1.5">Scroll</span>
         <motion.svg 
