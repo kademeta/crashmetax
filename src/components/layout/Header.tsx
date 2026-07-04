@@ -136,11 +136,14 @@ export default function Header() {
           {/* Hamburger Menu Toggle Button (Touch target 44px min) */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="block md:hidden p-3 rounded-full bg-white/5 border border-white/10 hover:border-white/20 text-white/70 hover:text-white transition-all duration-300 active:scale-95 focus:outline-none focus-visible:ring-1 focus-visible:ring-doginal-pink/55 relative z-50 w-11 h-11 flex items-center justify-center cursor-pointer"
+            className={cn(
+              "block md:hidden p-3 rounded-full bg-white/5 border border-white/10 hover:border-white/20 text-white/70 hover:text-white transition-all duration-300 active:scale-95 focus:outline-none w-11 h-11 flex items-center justify-center cursor-pointer relative z-50",
+              isMobileMenuOpen ? "opacity-0 pointer-events-none" : "opacity-100"
+            )}
             aria-label="Toggle Mobile Menu"
             aria-expanded={isMobileMenuOpen}
           >
-            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            <Menu className="w-5 h-5" />
           </button>
         </div>
       </motion.header>
@@ -156,7 +159,7 @@ export default function Header() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/70 backdrop-blur-md z-45 md:hidden"
+              className="fixed inset-0 bg-black/75 backdrop-blur-sm z-45 md:hidden"
             />
             
             {/* Sidebar drawer container */}
@@ -165,8 +168,17 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-0 right-0 bottom-0 w-[280px] bg-obsidian-950 border-l border-white/5 shadow-2xl p-8 pt-24 z-45 md:hidden flex flex-col justify-between"
+              className="fixed top-0 right-0 bottom-0 w-[280px] bg-[#0E1528]/98 backdrop-blur-3xl border-l border-white/[0.04] shadow-2xl p-8 pt-24 z-45 md:hidden flex flex-col justify-between rounded-l-[2rem] border-y border-white/[0.02]"
             >
+              {/* Close Button Inside Drawer (Perfect layout grid alignment) */}
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="absolute top-6 right-6 p-3 rounded-full bg-white/5 border border-white/10 hover:border-white/20 text-white/70 hover:text-white transition-all duration-300 active:scale-95 w-11 h-11 flex items-center justify-center cursor-pointer z-50 focus:outline-none"
+                aria-label="Close Mobile Menu"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
               <ul className="flex flex-col space-y-4">
                 {navLinks.map((link, idx) => {
                   const isLinkActive = activeSection === link.href.slice(1);
@@ -181,20 +193,28 @@ export default function Header() {
                         href={link.href}
                         onClick={() => setIsMobileMenuOpen(false)}
                         className={cn(
-                          "block px-5 py-3 rounded-xl text-sm font-bold font-sans tracking-widest uppercase transition-colors duration-300",
+                          "block px-5 py-3 rounded-2xl text-xs font-sans font-bold tracking-[0.25em] uppercase transition-all duration-300 relative overflow-hidden",
                           isLinkActive 
-                            ? "text-doginal-pink bg-white/[0.04] border border-white/5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)]" 
-                            : "text-white/60 hover:text-white hover:bg-white/[0.01]"
+                            ? "text-doginal-pink bg-doginal-pink/[0.04] border border-doginal-pink/15 shadow-[inset_0_1px_1px_rgba(255,177,221,0.05)]" 
+                            : "text-white/55 hover:text-white hover:bg-white/[0.02] border border-transparent"
                         )}
                       >
-                        {link.name}
+                        {isLinkActive && (
+                          <motion.span 
+                            layoutId="mobile-active-bar"
+                            className="absolute left-0 top-1/4 bottom-1/4 w-[3px] bg-doginal-pink rounded-r-full"
+                          />
+                        )}
+                        <span className={cn(isLinkActive ? "pl-2" : "", "transition-all duration-300 block")}>
+                          {link.name}
+                        </span>
                       </a>
                     </motion.li>
                   );
                 })}
               </ul>
               
-              <div className="text-[10px] text-white/20 font-sans tracking-[0.15em] uppercase select-none">
+              <div className="text-[10px] text-white/25 font-sans tracking-[0.15em] uppercase select-none">
                 © {new Date().getFullYear()} Crashmetax.
               </div>
             </motion.div>
