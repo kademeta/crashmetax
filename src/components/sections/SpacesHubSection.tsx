@@ -112,11 +112,12 @@ export default function SpacesHubSection() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             whileHover={{ y: -4 }}
+            style={{ willChange: "transform" }}
             className="lg:col-span-7 flex flex-col group/live"
           >
-            <div className="flex-1 bg-obsidian-900 rounded-[2.5rem] p-10 md:p-14 relative overflow-hidden shadow-[inset_0_2px_20px_rgba(255,255,255,0.03),0_40px_80px_rgba(0,0,0,0.8)] border border-white/10 group-hover/live:border-doginal-pink/35 transition-all duration-500 hover:shadow-[0_20px_50px_rgba(255,177,221,0.12)] flex flex-col justify-between min-h-[480px]">
+            <div className="flex-1 obsidian-card rounded-[2.5rem] p-10 md:p-14 relative overflow-hidden shadow-[inset_0_2px_20px_rgba(255,255,255,0.03),0_40px_80px_rgba(0,0,0,0.8)] border border-white/10 group-hover/live:border-doginal-pink/35 transition-all duration-500 hover:shadow-[0_20px_50px_rgba(255,177,221,0.12)] flex flex-col justify-between min-h-[480px]">
               
               {/* Pulsing glow background when live */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -124,6 +125,7 @@ export default function SpacesHubSection() {
                   animate={{ 
                     opacity: isLive ? [0.12, 0.25, 0.12] : [0.03, 0.08, 0.03] 
                   }}
+                  style={{ willChange: "opacity" }}
                   transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
                   className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[80px] ${
                     isLive 
@@ -222,7 +224,9 @@ export default function SpacesHubSection() {
             <motion.div 
               variants={cardVariants}
               whileHover={{ y: -4 }}
-              className="bg-obsidian-900/55 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/10 shadow-xl flex flex-col justify-between flex-1 min-h-[220px] transition-all duration-500 hover:border-doginal-teal/40 hover:bg-obsidian-900/70 hover:shadow-[0_12px_30px_rgba(34,245,255,0.08)] group/upcoming"
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              style={{ willChange: "transform" }}
+              className="obsidian-card rounded-[2.5rem] p-8 border border-white/10 shadow-xl flex flex-col justify-between flex-1 min-h-[220px] transition-all duration-500 hover:border-doginal-teal/40 hover:bg-obsidian-900/70 hover:shadow-[0_12px_30px_rgba(34,245,255,0.08)] group/upcoming"
             >
               <div>
                 <div className="flex items-center gap-2 text-white/40 uppercase tracking-widest text-[10px] font-sans font-bold select-none">
@@ -271,7 +275,9 @@ export default function SpacesHubSection() {
             <motion.div 
               variants={cardVariants}
               whileHover={{ y: -4 }}
-              className="bg-obsidian-900/55 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/10 shadow-xl flex flex-col justify-between flex-1 min-h-[220px] transition-all duration-500 hover:border-doginal-teal/20 hover:bg-obsidian-900/70"
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              style={{ willChange: "transform" }}
+              className="obsidian-card rounded-[2.5rem] p-8 border border-white/10 shadow-xl flex flex-col justify-between flex-1 min-h-[220px] transition-all duration-500 hover:border-doginal-teal/20 hover:bg-obsidian-900/70"
             >
               <div>
                 <div className="flex items-center gap-2 text-white/40 uppercase tracking-widest text-[10px] font-sans font-bold mb-4 select-none">
@@ -287,6 +293,7 @@ export default function SpacesHubSection() {
                         href={item.link}
                         target="_blank"
                         rel="noopener noreferrer"
+                        style={{ willChange: "transform" }}
                         className="group/item flex items-center gap-4 p-4 rounded-2xl bg-white/[0.02] hover:bg-white/[0.06] border border-white/5 hover:border-doginal-teal/30 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-doginal-teal/30 hover:scale-[1.01]"
                       >
                         {/* Play Button Icon wrapper */}

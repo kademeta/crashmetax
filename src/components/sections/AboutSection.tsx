@@ -125,7 +125,9 @@ export default function AboutSection() {
           <motion.div
             variants={itemVariants}
             whileHover={{ y: -6 }}
-            className="backdrop-blur-md bg-[#1E2937]/35 border border-white/5 rounded-3xl p-8 flex flex-col justify-between transition-all duration-500 hover:border-doginal-pink/40 hover:bg-[#1E2937]/50 hover:shadow-[0_12px_30px_rgba(255,177,221,0.1)] group focus-within:ring-2 focus-within:ring-doginal-pink/30"
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            style={{ willChange: "transform" }}
+            className="obsidian-card border border-white/5 rounded-3xl p-8 flex flex-col justify-between transition-all duration-500 hover:border-doginal-pink/40 hover:bg-[#1E2937]/50 hover:shadow-[0_12px_30px_rgba(255,177,221,0.1)] group focus-within:ring-2 focus-within:ring-doginal-pink/30"
           >
             <div>
               <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/10 text-[#ffb1dd] group-hover:bg-[#ffb1dd]/10 group-hover:border-doginal-pink/30 transition-all duration-500 shrink-0 mb-6">
@@ -142,7 +144,9 @@ export default function AboutSection() {
           <motion.div
             variants={itemVariants}
             whileHover={{ y: -6 }}
-            className="backdrop-blur-md bg-[#1E2937]/35 border border-white/5 rounded-3xl p-8 flex flex-col justify-between transition-all duration-500 hover:border-doginal-teal/40 hover:bg-[#1E2937]/50 hover:shadow-[0_12px_30px_rgba(34,245,255,0.1)] group focus-within:ring-2 focus-within:ring-doginal-teal/30"
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            style={{ willChange: "transform" }}
+            className="obsidian-card border border-white/5 rounded-3xl p-8 flex flex-col justify-between transition-all duration-500 hover:border-doginal-teal/40 hover:bg-[#1E2937]/50 hover:shadow-[0_12px_30px_rgba(34,245,255,0.1)] group focus-within:ring-2 focus-within:ring-doginal-teal/30"
           >
             <div>
               <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/10 text-doginal-teal group-hover:bg-doginal-teal/10 group-hover:border-doginal-teal/30 transition-all duration-500 shrink-0 mb-6">
@@ -159,7 +163,9 @@ export default function AboutSection() {
           <motion.div
             variants={itemVariants}
             whileHover={{ y: -6 }}
-            className="backdrop-blur-md bg-[#1E2937]/35 border border-white/5 rounded-3xl p-8 flex flex-col justify-between transition-all duration-500 hover:border-doginal-teal/40 hover:bg-[#1E2937]/50 hover:shadow-[0_12px_30px_rgba(34,245,255,0.1)] group focus-within:ring-2 focus-within:ring-doginal-teal/30"
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            style={{ willChange: "transform" }}
+            className="obsidian-card border border-white/5 rounded-3xl p-8 flex flex-col justify-between transition-all duration-500 hover:border-doginal-teal/40 hover:bg-[#1E2937]/50 hover:shadow-[0_12px_30px_rgba(34,245,255,0.1)] group focus-within:ring-2 focus-within:ring-doginal-teal/30"
           >
             <div>
               <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/10 text-[#FFD60A] group-hover:bg-[#FFD60A]/10 group-hover:border-[#FFD60A]/30 transition-all duration-500 shrink-0 mb-6">

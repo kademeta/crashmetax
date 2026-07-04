@@ -104,30 +104,30 @@ export default function StorySection() {
         <motion.div
           initial={{ opacity: 0.15 }}
           animate={{
-            opacity: mode === "wisdom" ? 0.15 : 0,
-            scale: mode === "wisdom" ? 1.02 : 1.0,
+            opacity: mode === "wisdom" ? 0.15 : 0
           }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          style={{ 
+            willChange: "opacity",
             backgroundImage: "url('/kademeta_Sin_City_style_Frank_Miller_graphic_novel_aesthetic_hi_7b73b2cc-8426-4c04-9b42-cbbd2f957fde.PNG')",
             filter: "blur(6px) brightness(0.85)",
           }}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         />
 
         {/* Unfiltered background: Wrecked car */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{
-            opacity: mode === "unfiltered" ? 0.15 : 0,
-            scale: mode === "unfiltered" ? 1.02 : 1.0,
+            opacity: mode === "unfiltered" ? 0.15 : 0
           }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          style={{ 
+            willChange: "opacity",
             backgroundImage: "url('/zxKrA.png')",
             filter: "blur(5px) brightness(0.85)",
           }}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         />
 
         {/* Blue Tint Color Blend Layer */}
@@ -157,7 +157,7 @@ export default function StorySection() {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="text-4xl md:text-5xl lg:text-6xl font-sans font-bold text-white mb-8 tracking-tight text-center"
           >
             Wreckage to Wisdom
@@ -177,6 +177,7 @@ export default function StorySection() {
                   left: mode === "wisdom" ? 4 : 144,
                   right: mode === "wisdom" ? 144 : 4,
                 }}
+                style={{ willChange: "left, right" }}
                 transition={{ type: "spring", stiffness: 380, damping: 28 }}
               />
 

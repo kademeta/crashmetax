@@ -100,14 +100,15 @@ function TiltCard({ item }: { item: CollectibleItem }) {
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={handleMouseLeave}
-        whileHover={{ scale: 1.03, y: -6 }}
-        transition={{ type: "spring", stiffness: 350, damping: 22 }}
+        whileHover={{ scale: 1.025, y: -4 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
         style={{
           rotateX,
           rotateY,
           transformStyle: "preserve-3d",
+          willChange: "transform",
         }}
-        className={`relative w-full rounded-3xl obsidian-glass transition-all duration-500 flex flex-col justify-between shadow-[inset_0_2px_10px_rgba(0,0,0,0.6)] p-6 bg-[#1E2937]/35 border ${
+        className={`relative w-full rounded-3xl obsidian-card transition-all duration-500 flex flex-col justify-between shadow-[inset_0_2px_10px_rgba(0,0,0,0.6)] p-6 bg-[#1E2937]/35 border ${
           item.id === "doge-crash" 
             ? "border border-doginal-teal/50 shadow-[0_0_20px_rgba(34,245,255,0.1)] hover:border-doginal-teal/70 hover:shadow-[0_0_30px_rgba(34,245,255,0.22)]" 
             : "border border-white/5 hover:border-doginal-pink/55 hover:shadow-[0_12px_25px_rgba(255,177,221,0.12)]"
@@ -181,7 +182,7 @@ function TiltCard({ item }: { item: CollectibleItem }) {
           animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 15 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[110%] text-center pointer-events-none hidden md:block"
-          style={{ transform: "translateZ(40px)" }}
+          style={{ transform: "translateZ(40px)", willChange: "transform, opacity" }}
         >
           <div className="inline-block bg-obsidian-900/95 backdrop-blur-md text-white/90 px-4 py-2.5 rounded-xl text-xs font-sans font-medium border border-white/10 shadow-2xl">
             "{item.caption}"

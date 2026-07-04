@@ -67,7 +67,7 @@ export default function HeroSection() {
       
       {/* Ambient background grid with gentle parallax */}
       <motion.div 
-        style={{ y: backgroundY }}
+        style={{ y: backgroundY, willChange: "transform" }}
         className="absolute inset-0 z-0 pointer-events-none opacity-30 select-none"
       >
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -106,6 +106,7 @@ export default function HeroSection() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
+          style={{ willChange: "transform" }}
           className="absolute top-[20%] left-[25%] w-[400px] h-[400px] bg-doginal-pink/[0.015] blur-[120px] rounded-full"
         />
         <motion.div 
@@ -118,6 +119,7 @@ export default function HeroSection() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
+          style={{ willChange: "transform" }}
           className="absolute bottom-[20%] right-[25%] w-[450px] h-[450px] bg-doginal-teal/[0.015] blur-[140px] rounded-full"
         />
       </div>
@@ -148,6 +150,7 @@ export default function HeroSection() {
                 repeat: Infinity, 
                 ease: "easeInOut" 
               }}
+              style={{ willChange: "transform" }}
               className="w-full h-full rounded-full bg-doginal-teal/20 blur-[80px]"
             />
           </motion.div>
@@ -167,6 +170,7 @@ export default function HeroSection() {
                   }
                 : { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
             }
+            style={{ willChange: "transform" }}
             className="relative w-44 h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full border border-doginal-teal/25 p-2 bg-obsidian-900/60 shadow-[0_0_35px_rgba(34,245,255,0.12)] z-10 flex items-center justify-center"
           >
             <div className="relative w-full h-full rounded-full border border-white/10 overflow-hidden bg-[#18181B] shadow-inner">
