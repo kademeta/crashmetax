@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform, Variants } from "framer-motion";
 import { ExternalLink } from "lucide-react";
@@ -196,6 +196,14 @@ function TiltCard({ item }: { item: CollectibleItem }) {
 // --- Main Section ---
 export default function CollectionSection() {
   const [activeTab, setActiveTab] = useState<"doginals" | "pokemon">("doginals");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -298,8 +306,8 @@ export default function CollectionSection() {
                 {/* Mobile Snap Carousel / Desktop Responsive Grid */}
                 <motion.div 
                   variants={containerVariants}
-                  initial="hidden"
-                  whileInView="visible"
+                  initial={isMobile ? "visible" : "hidden"}
+                  whileInView={isMobile ? "visible" : "visible"}
                   viewport={{ once: true, margin: "-10%" }}
                   className="flex sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-6 overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory scrollbar-none pb-12 w-full px-4 -mx-4 sm:px-0 sm:mx-0 scroll-smooth"
                 >
@@ -335,8 +343,8 @@ export default function CollectionSection() {
                 {/* Mobile Snap Carousel / Desktop Responsive Grid */}
                 <motion.div 
                   variants={containerVariants}
-                  initial="hidden"
-                  whileInView="visible"
+                  initial={isMobile ? "visible" : "hidden"}
+                  whileInView={isMobile ? "visible" : "visible"}
                   viewport={{ once: true, margin: "-10%" }}
                   className="flex sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory scrollbar-none pb-12 w-full px-4 -mx-4 sm:px-0 sm:mx-0 scroll-smooth"
                 >

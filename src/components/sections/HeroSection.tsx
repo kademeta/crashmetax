@@ -16,20 +16,20 @@ export default function HeroSection() {
   useEffect(() => {
     // Stage 1: Avatar entrance begins immediately on mount (stage is 'avatar')
 
-    // Stage 2: 'crash' entrance starts at 700ms (after Avatar settles)
+    // Stage 2: 'crash' entrance starts at 150ms
     const crashTimer = setTimeout(() => {
       setStage('crash');
-    }, 700);
+    }, 150);
 
-    // Stage 3: 'metax' slide-out starts at 1500ms
+    // Stage 3: 'metax' slide-out starts at 450ms
     const metaxTimer = setTimeout(() => {
       setStage('metax');
-    }, 1500);
+    }, 450);
 
-    // Stage 4: 'settled' stage starts at 2150ms, fading in tagline, CTA, & scroll indicator
+    // Stage 4: 'settled' stage starts at 750ms, fading in tagline, CTA, & scroll indicator
     const settledTimer = setTimeout(() => {
       setStage('settled');
-    }, 2150);
+    }, 750);
 
     return () => {
       clearTimeout(crashTimer);
@@ -184,13 +184,9 @@ export default function HeroSection() {
         </div>
 
         {/* Heading Text (Tightened vertical gaps & refined negative tracking) */}
-        <motion.h1 
-          layout
-          className="flex items-center justify-center font-sans text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none drop-shadow-xl select-none mb-3"
-        >
+        <h1 className="flex items-center justify-center font-sans text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none drop-shadow-xl select-none mb-3">
           {/* "Crash" - Confident bold */}
           <motion.span 
-            layout 
             initial={{ scale: 0.97, opacity: 0 }}
             animate={stage !== 'avatar' ? { scale: 1, opacity: 1 } : { scale: 0.97, opacity: 0 }}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
@@ -201,7 +197,6 @@ export default function HeroSection() {
           
           {/* "metax" - Light, elegant slide-out */}
           <motion.span 
-            layout
             initial={{ width: 0, opacity: 0 }}
             animate={
               (stage === 'metax' || stage === 'settled')
@@ -228,7 +223,7 @@ export default function HeroSection() {
               metax
             </motion.span>
           </motion.span>
-        </motion.h1>
+        </h1>
 
         {/* Tagline (fades in gracefully, unified font & tight margins) */}
         <motion.p 

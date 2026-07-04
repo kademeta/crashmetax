@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { Compass, Sparkles } from "lucide-react";
 
@@ -20,6 +21,15 @@ function CrossIcon({ className = "w-5 h-5" }: { className?: string }) {
 }
 
 export default function AboutSection() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -115,8 +125,8 @@ export default function AboutSection() {
         {/* ROW 2: The Three Pillars Side-by-Side Grid (Staggered load-in) */}
         <motion.div
           variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial={isMobile ? "visible" : "hidden"}
+          whileInView={isMobile ? "visible" : "visible"}
           viewport={{ once: true, margin: "-10%" }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch w-full"
         >

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView, Variants } from "framer-motion";
 import { Mic, Calendar, Clock, Headphones, Play, Radio, ArrowUpRight } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/config";
@@ -28,6 +28,15 @@ export default function SpacesHubSection() {
     upcoming: UpcomingSpace[];
     recent: RecentSpace[];
   };
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const sectionRef = useRef<HTMLDivElement>(null);
   // Viewport observer to pause waveform animations when out of sight
@@ -109,8 +118,8 @@ export default function SpacesHubSection() {
           
           {/* LEFT: Main Broadcast Card (Mobile Command Center) */}
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             whileHover={{ y: -4 }}
@@ -214,8 +223,8 @@ export default function SpacesHubSection() {
           {/* RIGHT: Upcoming & Recent Area */}
           <motion.div 
             variants={rightContainerVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial={isMobile ? "visible" : "hidden"}
+            whileInView={isMobile ? "visible" : "visible"}
             viewport={{ once: true, margin: "-10%" }}
             className="lg:col-span-5 flex flex-col gap-8"
           >
