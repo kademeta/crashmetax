@@ -32,24 +32,26 @@ export default function AboutSection() {
   }, []);
 
   const containerVariants: Variants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: isMobile ? 1 : 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: isMobile ? 0 : 0.15,
       },
     },
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 25 },
+    hidden: isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-      },
+      transition: isMobile 
+        ? { duration: 0 } 
+        : {
+            duration: 0.8,
+            ease: [0.16, 1, 0.3, 1],
+          },
     },
   };
 
@@ -128,21 +130,16 @@ export default function AboutSection() {
 
         {/* ROW 2: The Three Pillars Side-by-Side Grid (Staggered load-in) */}
         <motion.div
-          {...(isMobile 
-            ? {} 
-            : {
-                variants: containerVariants,
-                initial: "hidden",
-                whileInView: "visible",
-                viewport: { once: true, margin: "-10%" }
-              }
-          )}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch w-full"
         >
           
           {/* God First (Pink Hover Theme) */}
           <motion.div
-            {...(isMobile ? {} : { variants: itemVariants })}
+            variants={itemVariants}
             whileHover={isMobile ? undefined : { y: -6 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             style={{ willChange: "transform" }}
@@ -161,7 +158,7 @@ export default function AboutSection() {
 
           {/* Culture & Antiquity (Teal Hover Theme) */}
           <motion.div
-            {...(isMobile ? {} : { variants: itemVariants })}
+            variants={itemVariants}
             whileHover={isMobile ? undefined : { y: -6 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             style={{ willChange: "transform" }}
@@ -180,7 +177,7 @@ export default function AboutSection() {
 
           {/* Showing Up (Teal Hover Theme with Gold Sparkles Icon) */}
           <motion.div
-            {...(isMobile ? {} : { variants: itemVariants })}
+            variants={itemVariants}
             whileHover={isMobile ? undefined : { y: -6 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             style={{ willChange: "transform" }}

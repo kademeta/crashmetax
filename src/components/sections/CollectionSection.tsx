@@ -206,24 +206,26 @@ export default function CollectionSection() {
   }, []);
 
   const containerVariants: Variants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: isMobile ? 1 : 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: isMobile ? 0 : 0.1,
       },
     },
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.7,
-        ease: [0.16, 1, 0.3, 1],
-      },
+      transition: isMobile 
+        ? { duration: 0 } 
+        : {
+            duration: 0.7,
+            ease: [0.16, 1, 0.3, 1],
+          },
     },
   };
 
@@ -305,21 +307,16 @@ export default function CollectionSection() {
 
                 {/* Mobile Snap Carousel / Desktop Responsive Grid */}
                 <motion.div 
-                  {...(isMobile 
-                    ? {} 
-                    : {
-                        variants: containerVariants,
-                        initial: "hidden",
-                        whileInView: "visible",
-                        viewport: { once: true, margin: "-10%" }
-                      }
-                  )}
+                  variants={containerVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-10%" }}
                   className="flex sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-6 overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory scrollbar-none pb-12 w-full px-4 -mx-4 sm:px-0 sm:mx-0 scroll-smooth"
                 >
                   {doginalsData.map((item) => (
                     <motion.div 
                       key={item.id} 
-                      {...(isMobile ? {} : { variants: itemVariants })}
+                      variants={itemVariants}
                       className="snap-center shrink-0 w-[275px] sm:w-auto"
                     >
                       <TiltCard item={item} />
@@ -347,21 +344,16 @@ export default function CollectionSection() {
 
                 {/* Mobile Snap Carousel / Desktop Responsive Grid */}
                 <motion.div 
-                  {...(isMobile 
-                    ? {} 
-                    : {
-                        variants: containerVariants,
-                        initial: "hidden",
-                        whileInView: "visible",
-                        viewport: { once: true, margin: "-10%" }
-                      }
-                  )}
+                  variants={containerVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-10%" }}
                   className="flex sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory scrollbar-none pb-12 w-full px-4 -mx-4 sm:px-0 sm:mx-0 scroll-smooth"
                 >
                   {pokemonData.map((item) => (
                     <motion.div 
                       key={item.id} 
-                      {...(isMobile ? {} : { variants: itemVariants })}
+                      variants={itemVariants}
                       className="snap-center shrink-0 w-[285px] sm:w-auto"
                     >
                       <TiltCard item={item} />

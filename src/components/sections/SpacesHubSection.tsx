@@ -67,24 +67,26 @@ export default function SpacesHubSection() {
 
   // Scroll entry animation variants
   const rightContainerVariants: Variants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: isMobile ? 1 : 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: isMobile ? 0 : 0.15,
       },
     },
   };
 
   const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 25 },
+    hidden: isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-      },
+      transition: isMobile 
+        ? { duration: 0 } 
+        : {
+            duration: 0.8,
+            ease: [0.16, 1, 0.3, 1],
+          },
     },
   };
 
@@ -118,14 +120,9 @@ export default function SpacesHubSection() {
           
           {/* LEFT: Main Broadcast Card (Mobile Command Center) */}
           <motion.div 
-            {...(isMobile 
-              ? {} 
-              : {
-                  initial: { opacity: 0, y: 30 },
-                  whileInView: { opacity: 1, y: 0 },
-                  viewport: { once: true, margin: "-10%" }
-                }
-            )}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             whileHover={isMobile ? undefined : { y: -4 }}
             style={{ willChange: "transform" }}
@@ -227,21 +224,16 @@ export default function SpacesHubSection() {
 
           {/* RIGHT: Upcoming & Recent Area */}
           <motion.div 
-            {...(isMobile 
-              ? {} 
-              : {
-                  variants: rightContainerVariants,
-                  initial: "hidden",
-                  whileInView: "visible",
-                  viewport: { once: true, margin: "-10%" }
-                }
-            )}
+            variants={rightContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-10%" }}
             className="lg:col-span-5 flex flex-col gap-8"
           >
             
             {/* Upper: Upcoming Sessions */}
             <motion.div 
-              {...(isMobile ? {} : { variants: cardVariants })}
+              variants={cardVariants}
               whileHover={isMobile ? undefined : { y: -4 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               style={{ willChange: "transform" }}
@@ -292,7 +284,7 @@ export default function SpacesHubSection() {
 
             {/* Lower: Recent Archive (Sleek Glassmorphic Cards) */}
             <motion.div 
-              {...(isMobile ? {} : { variants: cardVariants })}
+              variants={cardVariants}
               whileHover={isMobile ? undefined : { y: -4 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               style={{ willChange: "transform" }}
