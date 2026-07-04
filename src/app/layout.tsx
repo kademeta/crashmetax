@@ -24,7 +24,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "The Crash Engine | Crashmetax",
+  title: "Crashmetax | Personal Brand Hub",
   description: "A premium personal hub for @Crashmetax. God First. Crypto Native.",
 };
 
