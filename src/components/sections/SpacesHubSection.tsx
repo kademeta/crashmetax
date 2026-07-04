@@ -118,11 +118,16 @@ export default function SpacesHubSection() {
           
           {/* LEFT: Main Broadcast Card (Mobile Command Center) */}
           <motion.div 
-            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-10%" }}
+            {...(isMobile 
+              ? {} 
+              : {
+                  initial: { opacity: 0, y: 30 },
+                  whileInView: { opacity: 1, y: 0 },
+                  viewport: { once: true, margin: "-10%" }
+                }
+            )}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            whileHover={{ y: -4 }}
+            whileHover={isMobile ? undefined : { y: -4 }}
             style={{ willChange: "transform" }}
             className="lg:col-span-7 flex flex-col group/live"
           >
@@ -222,17 +227,22 @@ export default function SpacesHubSection() {
 
           {/* RIGHT: Upcoming & Recent Area */}
           <motion.div 
-            variants={rightContainerVariants}
-            initial={isMobile ? "visible" : "hidden"}
-            whileInView={isMobile ? "visible" : "visible"}
-            viewport={{ once: true, margin: "-10%" }}
+            {...(isMobile 
+              ? {} 
+              : {
+                  variants: rightContainerVariants,
+                  initial: "hidden",
+                  whileInView: "visible",
+                  viewport: { once: true, margin: "-10%" }
+                }
+            )}
             className="lg:col-span-5 flex flex-col gap-8"
           >
             
             {/* Upper: Upcoming Sessions */}
             <motion.div 
-              variants={cardVariants}
-              whileHover={{ y: -4 }}
+              {...(isMobile ? {} : { variants: cardVariants })}
+              whileHover={isMobile ? undefined : { y: -4 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               style={{ willChange: "transform" }}
               className="obsidian-card rounded-[2.5rem] p-8 border border-white/10 shadow-xl flex flex-col justify-between flex-1 min-h-[220px] transition-all duration-500 hover:border-doginal-teal/40 hover:bg-obsidian-900/70 hover:shadow-[0_12px_30px_rgba(34,245,255,0.08)] group/upcoming"
@@ -282,8 +292,8 @@ export default function SpacesHubSection() {
 
             {/* Lower: Recent Archive (Sleek Glassmorphic Cards) */}
             <motion.div 
-              variants={cardVariants}
-              whileHover={{ y: -4 }}
+              {...(isMobile ? {} : { variants: cardVariants })}
+              whileHover={isMobile ? undefined : { y: -4 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               style={{ willChange: "transform" }}
               className="obsidian-card rounded-[2.5rem] p-8 border border-white/10 shadow-xl flex flex-col justify-between flex-1 min-h-[220px] transition-all duration-500 hover:border-doginal-teal/20 hover:bg-obsidian-900/70"

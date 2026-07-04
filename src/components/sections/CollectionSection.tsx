@@ -305,16 +305,21 @@ export default function CollectionSection() {
 
                 {/* Mobile Snap Carousel / Desktop Responsive Grid */}
                 <motion.div 
-                  variants={containerVariants}
-                  initial={isMobile ? "visible" : "hidden"}
-                  whileInView={isMobile ? "visible" : "visible"}
-                  viewport={{ once: true, margin: "-10%" }}
+                  {...(isMobile 
+                    ? {} 
+                    : {
+                        variants: containerVariants,
+                        initial: "hidden",
+                        whileInView: "visible",
+                        viewport: { once: true, margin: "-10%" }
+                      }
+                  )}
                   className="flex sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-6 overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory scrollbar-none pb-12 w-full px-4 -mx-4 sm:px-0 sm:mx-0 scroll-smooth"
                 >
                   {doginalsData.map((item) => (
                     <motion.div 
                       key={item.id} 
-                      variants={itemVariants}
+                      {...(isMobile ? {} : { variants: itemVariants })}
                       className="snap-center shrink-0 w-[275px] sm:w-auto"
                     >
                       <TiltCard item={item} />
@@ -342,16 +347,21 @@ export default function CollectionSection() {
 
                 {/* Mobile Snap Carousel / Desktop Responsive Grid */}
                 <motion.div 
-                  variants={containerVariants}
-                  initial={isMobile ? "visible" : "hidden"}
-                  whileInView={isMobile ? "visible" : "visible"}
-                  viewport={{ once: true, margin: "-10%" }}
+                  {...(isMobile 
+                    ? {} 
+                    : {
+                        variants: containerVariants,
+                        initial: "hidden",
+                        whileInView: "visible",
+                        viewport: { once: true, margin: "-10%" }
+                      }
+                  )}
                   className="flex sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-8 overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory scrollbar-none pb-12 w-full px-4 -mx-4 sm:px-0 sm:mx-0 scroll-smooth"
                 >
                   {pokemonData.map((item) => (
                     <motion.div 
                       key={item.id} 
-                      variants={itemVariants}
+                      {...(isMobile ? {} : { variants: itemVariants })}
                       className="snap-center shrink-0 w-[285px] sm:w-auto"
                     >
                       <TiltCard item={item} />

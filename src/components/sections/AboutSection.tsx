@@ -128,17 +128,22 @@ export default function AboutSection() {
 
         {/* ROW 2: The Three Pillars Side-by-Side Grid (Staggered load-in) */}
         <motion.div
-          variants={containerVariants}
-          initial={isMobile ? "visible" : "hidden"}
-          whileInView={isMobile ? "visible" : "visible"}
-          viewport={{ once: true, margin: "-10%" }}
+          {...(isMobile 
+            ? {} 
+            : {
+                variants: containerVariants,
+                initial: "hidden",
+                whileInView: "visible",
+                viewport: { once: true, margin: "-10%" }
+              }
+          )}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch w-full"
         >
           
           {/* God First (Pink Hover Theme) */}
           <motion.div
-            variants={itemVariants}
-            whileHover={{ y: -6 }}
+            {...(isMobile ? {} : { variants: itemVariants })}
+            whileHover={isMobile ? undefined : { y: -6 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             style={{ willChange: "transform" }}
             className="obsidian-card border border-white/5 rounded-3xl p-8 flex flex-col justify-between transition-all duration-500 hover:border-doginal-pink/40 hover:bg-[#1E2937]/50 hover:shadow-[0_12px_30px_rgba(255,177,221,0.1)] group focus-within:ring-2 focus-within:ring-doginal-pink/30"
@@ -156,8 +161,8 @@ export default function AboutSection() {
 
           {/* Culture & Antiquity (Teal Hover Theme) */}
           <motion.div
-            variants={itemVariants}
-            whileHover={{ y: -6 }}
+            {...(isMobile ? {} : { variants: itemVariants })}
+            whileHover={isMobile ? undefined : { y: -6 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             style={{ willChange: "transform" }}
             className="obsidian-card border border-white/5 rounded-3xl p-8 flex flex-col justify-between transition-all duration-500 hover:border-doginal-teal/40 hover:bg-[#1E2937]/50 hover:shadow-[0_12px_30px_rgba(34,245,255,0.1)] group focus-within:ring-2 focus-within:ring-doginal-teal/30"
@@ -175,8 +180,8 @@ export default function AboutSection() {
 
           {/* Showing Up (Teal Hover Theme with Gold Sparkles Icon) */}
           <motion.div
-            variants={itemVariants}
-            whileHover={{ y: -6 }}
+            {...(isMobile ? {} : { variants: itemVariants })}
+            whileHover={isMobile ? undefined : { y: -6 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             style={{ willChange: "transform" }}
             className="obsidian-card border border-white/5 rounded-3xl p-8 flex flex-col justify-between transition-all duration-500 hover:border-doginal-teal/40 hover:bg-[#1E2937]/50 hover:shadow-[0_12px_30px_rgba(34,245,255,0.1)] group focus-within:ring-2 focus-within:ring-doginal-teal/30"
